@@ -1,4 +1,23 @@
 ﻿@page
-@model MyApp.Namespace.UgliestDogsModel
+@model UgliestDogsModel
 @{
+    ViewData["Title"] = "Ugliest Dogs"; // Set the page title
+}
+
+<h1>World's Ugliest Dog Contest Winners</h1>
+
+<!-- Form with dropdown for selecting a dog from the list -->
+<form method="post">
+    <select name="selectedDog" asp-items="Model.DogList" onchange="this.form.submit()">
+        <option value="">-- Select a Dog --</option> <!-- Default option when no dog is selected -->
+    </select>
+</form>
+
+<!-- If a dog is selected, display the dog's details -->
+@if (Model.SelectedDog != null)
+{
+    <h2>@Model.SelectedDog.Name</h2> <!-- Display the dog's name -->
+    <p>Breed: @Model.SelectedDog.Breed</p> <!-- Display the dog's breed -->
+    <p>Year: @Model.SelectedDog.Year</p> <!-- Display the year of the contest -->
+    <img src="/images/@Model.SelectedDog.ImageFileName" alt="@Model.SelectedDog.Name" style="max-width: 300px;" /> <!-- Display the image of the selected dog -->
 }
